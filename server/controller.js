@@ -1,6 +1,28 @@
+require("dotenv").config(); 
+const {CONNECTION_STRING} = process.env; 
+
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize(CONNECTION_STRING, {
+    dialect: "postgres", 
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
+}); 
+
 let nextEmp = 5
 
 module.exports = {
+    getAllClients: (req, res) => {
+        sequelize.query(`select * from cc_clients c
+        join cc_users u on c.user_id = u.user_id;`)
+            .then(dbRes => res.status(200).send(dbRes[0]))
+            .catch(err => console.log(err))
+    }, 
+    
+    
     getUpcomingAppointments: (req, res) => {
         sequelize.query(`select a.appt_id, a.date, a.service_type, a.approved, a.completed, u.first_name, u.last_name 
         from cc_appointments a
