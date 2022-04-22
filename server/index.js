@@ -19,12 +19,12 @@ app.use(cors())
 // USERS
 app.get('/clients', getAllClients)
 
-// APPOINTMENTS
+// APPOINTMENTSc
 app.get('/pending', getPendingAppointments)
 app.get('/upcoming', getUpcomingAppointments)
 app.get('/appt', getPastAppointments)
 app.put('/approve', approveAppointment)
 app.put('/complete', completeAppointment)
-app.delete('/appt', deleteAppointment)
+//app.delete('/appt', deleteAppointment)
 
 app.listen(SERVER_PORT, () => console.log(`up on ${SERVER_PORT}`))
